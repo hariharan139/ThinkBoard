@@ -6,8 +6,7 @@ import CreatePage from "./pages/Createpage";
 import NoteDetailPage from "./pages/NoteDetailpage";
 const App = () => {
   return (
-    <div data-theme="retro">
-      <button className="btn btn-primary">Click me</button>
+    <div data-theme="aqua">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/create" element={<CreatePage />} />
