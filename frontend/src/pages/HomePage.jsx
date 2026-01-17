@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import RateLimitedUI from "../components/RateLimitedUI";
-import axios from "axios";
+
 import toast from "react-hot-toast";
 import NoteCard from "../components/NoteCard";
 import NotesNotFound from "../components/NotesNotFound";
-
+import api from "../lib/axios";
 const HomePage = () => {
   const [isratelimit, setratelimit] = useState(false);
   const [notes, setNotes] = useState([]);
@@ -13,12 +13,12 @@ const HomePage = () => {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await axios.get("http://localhost:5001/api/notes");
-        console.log(res.data);
+        const res = await api.get("/notes");
         setNotes(res.data);
         setratelimit(false);
       } catch (error) {
-        console.log("Error fetching ntoes", error.response);
+        console.log("Error fetching notes", error);
+
         if (error.response?.status === 429) {
           setratelimit(true);
         } else {
@@ -28,6 +28,7 @@ const HomePage = () => {
         setLoading(false);
       }
     };
+
     fetchNotes();
   }, []);
   return (
